@@ -54,6 +54,7 @@ GROUP BY discharge_date
 ORDER BY discharge_date;
 
 -- Step 7: Readmission Rate
+--formula readmission rate=(number of readmissions/number of discharges)x1.0
 SELECT 
   (SELECT COUNT(*) FROM   hospital.dbo.patients WHERE readmission_flag = 1) * 1.0 /
   (SELECT COUNT(*) FROM   hospital.dbo.patients WHERE discharge_date IS NOT NULL) AS readmission_rate;
