@@ -4,7 +4,8 @@
 
 --The length of stay can be calculated by subtracting the admission date from the discharge date.
 SELECT 
-    patient_id,
+    Patient_ID,
+    Patient_Name,
     ward,
     admission_date,
     discharge_date,
