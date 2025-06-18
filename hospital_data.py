@@ -81,18 +81,9 @@ fig_daily.update_traces(hovertemplate='<b>Date</b>: %{x|%Y-%m-%d}<br><b>Occupied
 fig_daily.update_layout(xaxis_title='Date', yaxis_title='Occupied Beds', hovermode='x unified')
 fig_daily.show()
 
-# -----------------------------
-# ADDITIONAL VISUALS
-# -----------------------------
-# 1. Readmission Rate Pie Chart (dummy example assuming readmission column exists)
-# Expecting the 'readmission' column to contain binary or categorical values such as 'Yes', 'No', 'Readmitted', etc.
-if 'readmission' in data.columns:
-    readmit_counts = data['readmission'].value_counts().reset_index()
-    readmit_counts.columns = ['status', 'count']
-    fig_pie = px.pie(readmit_counts, names='status', values='count', title='Readmission Rate Distribution', template='plotly_white')
-    fig_pie.show()
 
-# 2. Admission/Discharge Trend
+#addtional charts
+# 1.. Admission/Discharge Trend
 admit_discharge = data.groupby('admission_date').size().reset_index(name='Admissions')
 discharge_trend = data.groupby('discharge_date').size().reset_index(name='Discharges')
 
@@ -105,7 +96,7 @@ fig_trend.update_layout(title='Admission & Discharge Trends', xaxis_title='Date'
                         template='plotly_white', hovermode='x unified')
 fig_trend.show()
 
-# 3. Day-wise Admission Rates
+# 2. Day-wise Admission Rates
 data['admit_day'] = data['admission_date'].dt.day_name()
 admit_by_day = data['admit_day'].value_counts().reset_index()
 admit_by_day.columns = ['Day', 'Admissions']
@@ -114,7 +105,7 @@ fig_daywise = px.bar(admit_by_day, x='Day', y='Admissions', title='Day-wise Admi
 fig_daywise.update_traces(hovertemplate='<b>Day</b>: %{x}<br><b>Admissions</b>: %{y}')
 fig_daywise.show()
 
-# 4. Ward-Level Congestion – Patient Count
+# 3. Ward-Level Congestion – Patient Count
 ward_congestion = data['ward'].value_counts().reset_index()
 ward_congestion.columns = ['Ward', 'Patients']
 fig_congestion = px.bar(ward_congestion, x='Ward', y='Patients', title='Ward-Level Congestion (Patient Volume)',
@@ -122,7 +113,7 @@ fig_congestion = px.bar(ward_congestion, x='Ward', y='Patients', title='Ward-Lev
 fig_congestion.update_traces(hovertemplate='<b>Ward</b>: %{x}<br><b>Patients</b>: %{y}')
 fig_congestion.show()
 
-# 5. Patient Volume Trend
+# 4. Patient Volume Trend
 volume_trend = data.groupby('admission_date').size().reset_index(name='Admissions')
 fig_volume = px.line(volume_trend, x='admission_date', y='Admissions', title='Patient Volume Trend Over Time',
                      labels={'admission_date': 'Date'}, template='plotly_white', markers=True)
