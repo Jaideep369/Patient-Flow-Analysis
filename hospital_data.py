@@ -8,7 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Load dataset from CSV file
-data = pd.read_csv('/content/hospital_datas7.csv', on_bad_lines='skip')
+data = pd.read_csv('/content/hospital_datas45.csv', on_bad_lines='skip')
 
 # Convert date columns to datetime
 data['admission_date'] = pd.to_datetime(data['admission_date'])
